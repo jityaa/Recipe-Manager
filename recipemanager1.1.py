@@ -12,6 +12,14 @@ class Recipe_Book:
         #add a known recipe object to the recipes attribute
         self.recipes.append(recipe_object)
     
+    def delete_recipe(self, name):
+        for recipe in self.recipes:
+            if recipe.name == name:
+                self.recipes.remove(recipe)
+                print(f"{name} deleted from recipe book.")
+                return
+        print(f"{name} not found in recipe book.")
+
     
     def view_all_recipes(self):
         """iterates through all recipes that are in the recipes attribute and returns their names."""
@@ -56,21 +64,22 @@ class Recipe_Book:
 
         return recipe_fragments  
     
-    #THIS METHOD IS UNFINISHED
-    def search(self, keyword = None, category = None, ingredients = None, cook_time = None):
-        #if a keyword is given
-        if keyword != None:
-
+    #updated this method / still needs touchup
+    def search(self, keyword=None, category=None, ingredients=None, cook_time=None):
+    #if a keyword is given
+        if keyword is not None:
             #list of indexes of all passing names
-            accepted_names = []
+            accepted_indices = []
 
             #list of all recipe names
             names = self.view_partial_recipe("Name")
 
             #iterate through all names and add indices of passing names to accepted_names list
-            for name in names:
-                if name.find(keyword) != 0:
-                    accepted_names.append(names.index(name))
+            for index, name in enumerate(names):
+                if keyword.lower() in name.lower():
+                    accepted_indices.append(index)
+
+            return accepted_indices
 
 
 #we only really need one recipe book object
