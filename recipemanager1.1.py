@@ -161,7 +161,7 @@ Recipe2 = Recipe("Chicken under rice",
 Peter_Jity_recipe_book.add_recipe(Recipe2)
 
 
-print(Peter_Jity_recipe_book.search(None, None, None, 10))
+
 #EXAMPLE CODE
 
 #Display a single recipe from the recipe book:
@@ -172,3 +172,6 @@ print(Peter_Jity_recipe_book.search(None, None, None, 10))
 
 #Displaying all recipe names in the recipe book
 #print(Peter_Jity_recipe_book.view_all_recipes())
+
+#Displays recipes that match search criteria
+#print(Peter_Jity_recipe_book.search("Chicken", None, "OIL", 10))
