@@ -63,24 +63,49 @@ class Recipe_Book:
                 recipe_fragments.append(recipe.view()[desired_section])
 
         return recipe_fragments  
-    
-    #updated this method / still needs touchup
-    def search(self, keyword=None, category=None, ingredients=None, cook_time=None):
-    #if a keyword is given
-        if keyword is not None:
-            #list of indexes of all passing names
-            accepted_indices = []
+            
+    def search(self, keyword=None, category=None, ingredient=None, cook_time=None):
 
-            #list of all recipe names
-            names = self.view_partial_recipe("Name")
+        found_recipes = []
+        
+        #iterate through each recipe of the cook book
+        for recipe in self.recipes:
 
-            #iterate through all names and add indices of passing names to accepted_names list
-            for index, name in enumerate(names):
-                if keyword.lower() in name.lower():
-                    accepted_indices.append(index)
+            #if a keyword is given, determine if it is found in the recipe
+            if keyword is not None and keyword.lower() not in recipe.name.lower():
+                
+                #if it's not found, move to the next recipe
+                break
+        
+            #if a category is given, determine if it (at least partially) matches the recipe's category
+            if category is not None and category.lower() not in recipe.category.lower():
 
-            return accepted_indices
+                #if it doesn't, move to the next recipe
+                break
+            
+            #if an ingredient is given,
+            if ingredient is not None:
 
+                #iterate through each ingredient of the recipe, and convert it to lowercase
+                lowerIngredients = [i.lower() for i in recipe.ingredients]
+                
+                #determine if the ingredient appears in the recipe's incredient list
+                if ingredient.lower() not in lowerIngredients:
+
+                    #if it doesn't, move to the next recipe
+                    break
+
+            #if cook time is given, determine if the recipe can be cooked in that time limit    
+            if cook_time is not None and cook_time > recipe.cook_time:
+
+                #if it can't, move to the next recipe
+                break
+
+            #if a recipe passes all 4 of these conditionals, it's a recipe we're looking for, add it to the list
+            found_recipes.append(recipe.name)
+
+        return found_recipes
+                
 
 #we only really need one recipe book object
 Peter_Jity_recipe_book = Recipe_Book()
@@ -130,11 +155,13 @@ Recipe2 = Recipe("Chicken under rice",
        {1:"Preheat oil in pan on medium-high heat", 2: "add chopped onion to pan", 3:"In bowl, mix chicken breast with oil, salt, and black pepper",
         4:"Separatly bring water to a boil and add rice, simmer until water is absorbed", 5:"Add chicken to pan. After 10 minutes flip",
         6:"After chicken is cooked through, plate with rice"},
-        "Savory entree",
+        "Savory dessert",
         25)
 
 Peter_Jity_recipe_book.add_recipe(Recipe2)
 
+
+print(Peter_Jity_recipe_book.search(None, None, None, 10))
 #EXAMPLE CODE
 
 #Display a single recipe from the recipe book:
@@ -145,6 +172,3 @@ Peter_Jity_recipe_book.add_recipe(Recipe2)
 
 #Displaying all recipe names in the recipe book
 #print(Peter_Jity_recipe_book.view_all_recipes())
-
-#Not yet functional:
-#Peter_Jity_recipe_book.search()
