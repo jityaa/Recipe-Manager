@@ -119,22 +119,37 @@ class Recipe_Book:
         #perform search and return results
         if search_results:
             print("\nSearch Results:")
-            for index in search_results:
-                recipe = self.recipes[index]
-                print(f"{index + 1}. {recipe.name}")
+            for index, recipe_index in enumerate(search_results, start=6):
+                recipe = self.recipes[recipe_index]
+                print(f"{index}. {recipe.name}")
+        
+            selected_index = input("\nEnter the number of the recipe you want to view (0 to cancel): ")
+            if selected_index.isdigit():
+                selected_index = int(selected_index)
+                if 6 <= selected_index <= len(search_results) + 5:
+                    recipe_to_view = self.recipes[search_results[selected_index - 6]]
+                    print("\nViewing Recipe:")
+                    print(recipe_to_view.view())
+                elif selected_index != 0:
+                    print("Invalid input. Please enter a valid recipe number.")
         else:
             print("No recipes found matching the search criteria.")
     
     #search based on the criteria given
     def search(self, keyword=None, category=None, ingredients=None, cook_time=None):
-    #if a keyword is given
-        matching_indices = [index for index, recipe in enumerate(self.recipes) if
-                            (keyword.lower() in recipe.name.lower() if keyword else True) and
-                            (category.lower() in recipe.category.lower() if category else True) and
-                            (ingredients.lower() in ' '.join(recipe.ingredients).lower() if ingredients else True) and
-                            (cook_time == recipe.cook_time if cook_time is not None else True)]
+        matching_indices = [
+            index for index, recipe in enumerate(self.recipes) if
+            (keyword.lower() in recipe.name.lower() if keyword and keyword.lower() != 'skip' else True) and
+            (category.lower() in recipe.category.lower() if category and category.lower() != 'skip' else True) and
+            (any(ingredient.lower() in ' '.join(recipe.ingredients).lower() for ingredient in ingredients) if ingredients and 'skip' not in [i.lower() for i in ingredients] else True) and
+            (cook_time == recipe.cook_time if cook_time and cook_time.lower() != 'skip' else True)
+        ]
+
+        #sort the matching indices for correct display order
+        matching_indices.sort()
 
         return matching_indices
+
 
 #define a class for recipe
 class Recipe:
@@ -198,6 +213,7 @@ Recipe4 = Recipe("Cereal", ["cereal", "milk"],
                  {1: "Add desired cereal to bowl", 2: "Add milk"},
                  "Breakfast",
                  5)
+
 Recipe5 = Recipe("Ground turkey stir fry",
                  ["ground turkey", "white rice", "salt", "cumin", "black pepper", "oil", "cayenne pepper", "mushrooms", "shredded carrots"],
                  {1: "Preheat oil in pan on medium-high heat", 2: "add chopped mushrooms and shredded carrots to pan",
