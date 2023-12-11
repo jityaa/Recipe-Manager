@@ -191,19 +191,20 @@ Recipe1 = Recipe("Chicken over rice", ["chicken breast", "white rice", "salt", "
                  "Savory entree",
                  25)
 
-Recipe2 = Recipe("Chicken under rice", ["chicken breast", "white rice", "salt", "onion", "black pepper", "oil"],
-                 {1: "Preheat oil in pan on medium-high heat", 2: "add chopped onion to pan",
-                  3: "In bowl, mix chicken breast with oil, salt, and black pepper",
-                  4: "Separately bring water to a boil and add rice, simmer until water is absorbed",
-                  5: "Add chicken to pan. After 10 minutes flip",
-                  6: "After chicken is cooked through, plate with rice"},
-                 "Savory entree",
-                 25)
+#Recipe sourced from https://www.tasteofhome.com/recipes/vanilla-meringue-cookies/
+Recipe2 = Recipe("Vanilla meringue cookies", ["eggs", "vanilla extract", "salt", "sugar", "cream of tartar"],
+                 {1: "Place egg whites in a small bowl; let stand at room temperature 20 minutes.", 2: "Preheat oven to 250 degrees F",
+                  3: "Add vanilla, cream of tartar and salt to egg whites; beat on medium speed until foamy",
+                  4: "While beating on high, gradually add sugar until fully it's dissolved and stiff glossy peaks form, about 7 minutes",
+                  5: "Pipe cookies onto parchment-lined baking sheets",
+                  6: "Bake until firm to touch, 40-45 minutes. Turn off oven and leave meringues in oven to cool for 1 hour"},
+                 "Dessert",
+                 60)
 
 Recipe3 = Recipe("Fried eggs", ["Eggs", "oil", "salt", "black pepper"],
                  {1: "Preheat oil in pan on medium heat", 2: "Crack eggs into pan",
                   3: "After 5 minutes season and serve"},
-                 "Savory entree",
+                 "Breakfast",
                  10)
 
 Recipe4 = Recipe("Cereal", ["cereal", "milk"],
