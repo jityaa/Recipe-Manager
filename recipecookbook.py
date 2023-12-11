@@ -8,7 +8,7 @@ class Recipe_Book:
     def __init__(self):
         print("Book opened")
 
-    #prompt the user and give them options
+    #display the menu options for the user to pick from
     def display_menu(self):
         print("1. View all recipes")
         print("2. Add a recipe")
@@ -27,12 +27,13 @@ class Recipe_Book:
             print("Invalid input. Please enter a number.")
             return -1
     
-    #call function based on choice
+    #main user interface loop
     def user_interface(self):
         while True:
             self.display_menu()
             choice = self.get_user_choice()
 
+            #each choice has logic it runs
             if choice == 0:
                 print("Book closing...")
                 break
@@ -56,7 +57,9 @@ class Recipe_Book:
             else:
                 print("Invalid choice. Please enter a number between 0 and 5.")
     
+    #prompt user to add new recipe
     def add_recipe_prompt(self):
+        #get recipe details from the user
         name = input("Enter the name of the recipe: ")
         ingredients = input("Enter the ingredients (comma-separated): ").split(', ')
         instructions = {}
@@ -70,6 +73,7 @@ class Recipe_Book:
         category = input("Enter the category of the recipe: ")
         cook_time = int(input("Enter the cook time in minutes: "))
 
+        #create a new recipe object and add it to the book
         new_recipe = Recipe(name, ingredients, instructions, category, cook_time)
         self.add_recipe(new_recipe)
         print(f"{name} added to the recipe book.")
@@ -77,11 +81,13 @@ class Recipe_Book:
     def add_recipe(self, recipe_object):
         #add a known recipe object to the recipes attribute
         self.recipes.append(recipe_object)
-
+    
+    #ask user what the name of the recipe they want to delete is
     def delete_recipe_prompt(self):
         name_to_delete = input("Enter the name of the recipe you want to delete: ")
         self.delete_recipe(name_to_delete)
     
+    #delete a recipe from the recipe book
     def delete_recipe(self, name):
         matching_recipes = [recipe for recipe in self.recipes if recipe.name == name]
         if matching_recipes:
@@ -90,21 +96,17 @@ class Recipe_Book:
         else:
             print(f"{name} not found in recipe book.")
 
-    
+    #view names of all the recipes
     def view_all_recipes(self):
         """iterates through all recipes that are in the recipes attribute and returns their names."""
         return [recipe.name for recipe in self.recipes]
     
+    #view details of specific recipes
     def view(self, name):
         matching_recipes = [recipe.view() for recipe in self.recipes if recipe.name == name]
-        return matching_recipes[0] if matching_recipes else f"{name} not found in recipe book."
+        return matching_recipes[0] if matching_recipes else f"{name} not found in recipe book."    
 
-    def view_partial_recipe(self, desired_section):
-        """creates a list containing the a desired portion of each recipe"""
-        return [recipe.view()[desired_section] for recipe in self.recipes]
-    
-    #updated this method / still needs touchup
-
+    #prompt user for search criteria
     def search_prompt(self):
         print("\n*** Search Recipes ***")
         keyword = input("Enter a keyword to search by name: ")
@@ -114,6 +116,7 @@ class Recipe_Book:
         
         search_results = self.search(keyword=keyword, category=category, ingredients=ingredients, cook_time=cook_time)
         
+        #perform search and return results
         if search_results:
             print("\nSearch Results:")
             for index in search_results:
@@ -122,8 +125,7 @@ class Recipe_Book:
         else:
             print("No recipes found matching the search criteria.")
     
-#not sure
-
+    #search based on the criteria given
     def search(self, keyword=None, category=None, ingredients=None, cook_time=None):
     #if a keyword is given
         matching_indices = [index for index, recipe in enumerate(self.recipes) if
@@ -134,9 +136,7 @@ class Recipe_Book:
 
         return matching_indices
 
-#we only really need one recipe book object
-Peter_Jity_recipe_book = Recipe_Book()
-
+#define a class for recipe
 class Recipe:
     
     def __init__(self, name, ingredients, instructions, category, cook_time):
@@ -146,6 +146,7 @@ class Recipe:
         self.category = category
         self.cook_time = cook_time
 
+    #view details of recipe
     def view(self):
         recipe_info = {
             "Name": self.name,
@@ -156,6 +157,7 @@ class Recipe:
         }
         return(recipe_info)
     
+    #edit the recipe
     def edit(self, new_name, new_ingredients, new_instructions, new_category, new_cook_time):
         self.name = new_name
         self.ingredients = new_ingredients
@@ -164,18 +166,10 @@ class Recipe:
         self.cook_time = new_cook_time
         print("Recipe updated.")
 
+#create an instance of the recipe book
+Peter_Jity_recipe_book = Recipe_Book()
 
-#TESTING 
-
-if __name__ == "__main__":
-    Peter_Jity_recipe_book = Recipe_Book()
-
-    while True:
-        Peter_Jity_recipe_book.user_interface()
-        another_action = input("Do you want to perform another action? (yes/no): ").lower()
-        if another_action != 'yes':
-            break
-
+#create some recipe instances and add them to the recipe book
 Recipe1 = Recipe("Chicken over rice", ["chicken breast", "white rice", "salt", "onion", "black pepper", "oil"],
                  {1: "Preheat oil in pan on medium-high heat", 2: "add chopped onion to pan",
                   3: "In bowl, mix chicken breast with oil, salt, and black pepper",
@@ -198,18 +192,10 @@ Recipe2 = Recipe("Chicken under rice", ["chicken breast", "white rice", "salt", 
 
 Peter_Jity_recipe_book.add_recipe(Recipe2)
 
-#EXAMPLE CODE
-#print(Peter_Jity_recipe_book.view("Chicken over rice"))
-#print(Peter_Jity_recipe_book.search(keyword="Chicken"))
-
-#Display a single recipe from the recipe book:
-#print(Peter_Jity_recipe_book.view("Chicken over rice"))
-
-#Displaying a single recipe object
-#print(Recipe1.view())
-
-#Displaying all recipe names in the recipe book
-#print(Peter_Jity_recipe_book.view_all_recipes())
-
-#Not yet functional:
-#Peter_Jity_recipe_book.search()
+#test the recipe book functionality
+if __name__ == "__main__":
+    while True:
+        Peter_Jity_recipe_book.user_interface()
+        another_action = input("Do you want to perform another action? (yes/no): ").lower()
+        if another_action != 'yes':
+            break
