@@ -179,8 +179,6 @@ Recipe1 = Recipe("Chicken over rice", ["chicken breast", "white rice", "salt", "
                  "Savory entree",
                  25)
 
-Peter_Jity_recipe_book.add_recipe(Recipe1)
-
 Recipe2 = Recipe("Chicken under rice", ["chicken breast", "white rice", "salt", "onion", "black pepper", "oil"],
                  {1: "Preheat oil in pan on medium-high heat", 2: "add chopped onion to pan",
                   3: "In bowl, mix chicken breast with oil, salt, and black pepper",
@@ -190,7 +188,31 @@ Recipe2 = Recipe("Chicken under rice", ["chicken breast", "white rice", "salt", 
                  "Savory entree",
                  25)
 
-Peter_Jity_recipe_book.add_recipe(Recipe2)
+Recipe3 = Recipe("Fried eggs", ["Eggs", "oil", "salt", "black pepper"],
+                 {1: "Preheat oil in pan on medium heat", 2: "Crack eggs into pan",
+                  3: "After 5 minutes season and serve"},
+                 "Savory entree",
+                 10)
+
+Recipe4 = Recipe("Cereal", ["cereal", "milk"],
+                 {1: "Add desired cereal to bowl", 2: "Add milk"},
+                 "Breakfast",
+                 5)
+Recipe5 = Recipe("Ground turkey stir fry",
+                 ["ground turkey", "white rice", "salt", "cumin", "black pepper", "oil", "cayenne pepper", "mushrooms", "shredded carrots"],
+                 {1: "Preheat oil in pan on medium-high heat", 2: "add chopped mushrooms and shredded carrots to pan",
+                  3: "cook until softened, about 5 minutes, then set aside",
+                  4: "Separately bring water to a boil and add rice, simmer until water is absorbed",
+                  5: "Add ground turkey to the pan and break up gently",
+                  6: "cook for 5 min then flip",
+                  7: "simmer until fully cooked and spice to taste with salt, black pepper, cumin, and cayenne pepper",
+                  8: "add the mushrooms and carrots back to pan",
+                  9: "serve over rice"},
+                 "Savory entree",
+                 25)
+recipes = [Recipe1, Recipe2, Recipe3, Recipe4, Recipe5]
+for recipe in recipes:
+    Peter_Jity_recipe_book.add_recipe(recipe)
 
 #test the recipe book functionality
 if __name__ == "__main__":
