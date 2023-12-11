@@ -142,12 +142,9 @@ class Recipe_Book:
             (keyword.lower() in recipe.name.lower() if keyword and keyword.lower() != 'skip' else True) and
             (category.lower() in recipe.category.lower() if category and category.lower() != 'skip' else True) and
             (any(ingredient.lower() in ' '.join(recipe.ingredients).lower() for ingredient in ingredients) if ingredients and 'skip' not in [i.lower() for i in ingredients] else True) and
-            (cook_time == recipe.cook_time if cook_time and cook_time.lower() != 'skip' else True)
+            (cook_time is None or (cook_time.isdigit() and int(cook_time) >= recipe.cook_time) if cook_time and cook_time.lower() != 'skip' else True)
         ]
-
-        #sort the matching indices for correct display order
-        matching_indices.sort()
-
+        
         return matching_indices
 
 
