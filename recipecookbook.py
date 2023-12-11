@@ -223,7 +223,23 @@ Recipe5 = Recipe("Ground turkey stir fry",
                   9: "serve over rice"},
                  "Savory entree",
                  25)
-recipes = [Recipe1, Recipe2, Recipe3, Recipe4, Recipe5]
+Recipe6 = Recipe("Kale chips",
+                 ["kale", "oil", "salt"],
+                 {1: "Preheat oven to 300 degrees F", 2: "Cut kale into bite sized pieces",
+                  3: "Wash and dry kale thoroughly", 4: "Toss kale with oil and salt",
+                  5: "Spread kale on baking sheet and bake until edges are crisp and brown, about 25 minutes",
+                  6: "Cool and serve"},
+                 "Salty appetizer",
+                 30)
+Recipe7 = Recipe("Roasted asparagus",
+                 ["asparagus", "oil", "salt", "black pepper", "red pepper"],
+                 {1: "Preheat oven to 400 degrees F", 2: "trim the ends of the asparagus",
+                  3: "Wash and dry asparagus thoroughly", 4: "Toss kale with oil, salt, black pepper, and red pepper",
+                  5: "Add asparagus to glass dish and roast, about 15 minutes, flip halfway",
+                  6: "Cool and serve"},
+                 "Salty appetizer",
+                 25)
+recipes = [Recipe1, Recipe2, Recipe3, Recipe4, Recipe5, Recipe6, Recipe7]
 for recipe in recipes:
     Peter_Jity_recipe_book.add_recipe(recipe)
 
